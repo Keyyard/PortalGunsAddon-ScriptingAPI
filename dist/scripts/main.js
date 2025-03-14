@@ -1,5 +1,10 @@
 // scripts/main.ts
-import { Player as Player3, system as system3, world as world2 } from "@minecraft/server";
+import {
+  Player as Player3,
+  system as system3,
+  world as world2,
+  EquipmentSlot
+} from "@minecraft/server";
 
 // scripts/PortalGun.ts
 import { system } from "@minecraft/server";
@@ -302,22 +307,27 @@ system3.runInterval(() => {
   });
 });
 world2.afterEvents.itemUse.subscribe(({ itemStack, source }) => {
-  if (!(source instanceof Player3)) {
-    return;
-  }
-  let defaultGun = source.getDynamicProperty(`defaultGun`);
-  if (!defaultGun) {
-    source.setDynamicProperty(`defaultGun`, `red`);
-    defaultGun = `red`;
-  }
-  switch (defaultGun) {
-    case "red": {
-      Guns.PortalGun().useRedPortalGun(source, itemStack);
-      break;
+  let playerHeld = source.getComponent(`equippable`).getEquipment(
+    EquipmentSlot.Mainhand
+  );
+  if (playerHeld?.typeId == "keyyard:portal_gun") {
+    if (!(source instanceof Player3)) {
+      return;
     }
-    case "blue": {
-      Guns.PortalGun().useBluePortalGun(source);
-      break;
+    let defaultGun = source.getDynamicProperty(`defaultGun`);
+    if (!defaultGun) {
+      source.setDynamicProperty(`defaultGun`, `red`);
+      defaultGun = `red`;
+    }
+    switch (defaultGun) {
+      case "red": {
+        Guns.PortalGun().useRedPortalGun(source, itemStack);
+        break;
+      }
+      case "blue": {
+        Guns.PortalGun().useBluePortalGun(source);
+        break;
+      }
     }
   }
 });

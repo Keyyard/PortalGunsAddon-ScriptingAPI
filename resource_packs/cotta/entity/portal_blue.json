@@ -7,19 +7,21 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "default": "textures/entity/portal_2"
+        "default": "textures/entity/portal_blue"
       },
       "geometry": {
-        "default": "geometry.gun_portal_blue"
+        "default": "geometry.portal"
       },
       "animations": {
-        "laying": "animation.portal.laying"
+        "laying": "animation.portal.laying",
+        "arrive": "animation.portal.arrive"
       },
       "scripts": {
         "animate": [
           {
             "laying": "query.mark_variant == 1"
-          }
+          },
+          "arrive"
         ]
       },
 

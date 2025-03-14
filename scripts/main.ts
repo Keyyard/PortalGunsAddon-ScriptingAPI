@@ -1,4 +1,11 @@
-import { Player, system, world, EntityInventoryComponent } from "@minecraft/server";
+import {
+  Player,
+  system,
+  world,
+  EntityInventoryComponent,
+  EntityEquippableComponent,
+  EquipmentSlot,
+} from "@minecraft/server";
 import { Guns } from "./PortalGun";
 import { teleportToLinkedPortal } from "./utils";
 
@@ -24,23 +31,28 @@ system.runInterval(() => {
 });
 
 world.afterEvents.itemUse.subscribe(({ itemStack, source }) => {
-  if (!(source instanceof Player)) {
-    return;
-  }
-
-  let defaultGun = source.getDynamicProperty(`defaultGun`) as string;
-  if (!defaultGun) {
-    source.setDynamicProperty(`defaultGun`, `red`);
-    defaultGun = `red`;
-  }
-  switch (defaultGun) {
-    case "red": {
-      Guns.PortalGun().useRedPortalGun(source, itemStack);
-      break;
+  let playerHeld = (source.getComponent(`equippable`) as EntityEquippableComponent).getEquipment(
+    EquipmentSlot.Mainhand
+  );
+  if (playerHeld?.typeId == "keyyard:portal_gun") {
+    if (!(source instanceof Player)) {
+      return;
     }
-    case "blue": {
-      Guns.PortalGun().useBluePortalGun(source);
-      break;
+
+    let defaultGun = source.getDynamicProperty(`defaultGun`) as string;
+    if (!defaultGun) {
+      source.setDynamicProperty(`defaultGun`, `red`);
+      defaultGun = `red`;
+    }
+    switch (defaultGun) {
+      case "red": {
+        Guns.PortalGun().useRedPortalGun(source, itemStack);
+        break;
+      }
+      case "blue": {
+        Guns.PortalGun().useBluePortalGun(source);
+        break;
+      }
     }
   }
 });
