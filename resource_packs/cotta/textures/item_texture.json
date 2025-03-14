@@ -1,0 +1,12 @@
+{
+  "resource_pack_name": "Keyyard_Portal_Gun",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "keyyard_portal_gun_red": {
+      "textures": "textures/items/portal_gun_icon"
+    },
+    "keyyard_portal_gun_blue": {
+      "textures": "textures/items/portal_gun_icon"
+    }
+  }
+}

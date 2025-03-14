@@ -1,0 +1,30 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.gun_portal_blue",
+				"texture_width": 16,
+				"texture_height": 16,
+				"visible_bounds_width": 1,
+				"visible_bounds_height": 1,
+				"visible_bounds_offset": [0, 0, 0]
+			},
+			"bones": [
+				{
+					"name": "rightitem",
+					"pivot": [0.25, 18, 0],
+					"rotation": [0, 90, 0],
+					"texture_meshes": [
+						{
+							"texture": "default",
+							"position": [-0.25, -13.5, 7.7],
+							"rotation": [0, 90, 90],
+							"scale": [1, 1, 2]
+						}
+					]
+				}
+			]
+		}
+	]
+}

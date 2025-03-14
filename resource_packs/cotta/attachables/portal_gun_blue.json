@@ -1,0 +1,32 @@
+{
+  "format_version": "1.19.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "keyyard:portal_gun_blue",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/models/portal_gun"
+      },
+      "geometry": {
+        "default": "geometry.portal_gun"
+      },
+      "animations": {
+        "wield_first_person": "animation.model.portal_gun_1st",
+        "wield_third_person": "animation.model.portal_gun_3rd"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "wield_first_person": "context.is_first_person"
+          },
+          {
+            "wield_third_person": "!context.is_first_person"
+          }
+        ]
+      },
+      "render_controllers": ["controller.render.default"]
+    }
+  }
+}

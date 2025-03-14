@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "keyyard:portal_red",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/portal_1"
+      },
+      "geometry": {
+        "default": "geometry.gun_portal_blue"
+      },
+      "animations": {
+        "laying": "animation.portal.laying"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "laying": "query.mark_variant == 1"
+          }
+        ]
+      },
+      "render_controllers": ["controller.render.gun_portal_red"],
+      "spawn_egg": {
+        "base_color": "#000000",
+        "overlay_color": "#FFFFFF"
+      }
+    }
+  }
+}

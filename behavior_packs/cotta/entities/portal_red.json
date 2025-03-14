@@ -1,0 +1,47 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "keyyard:portal_red",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "keyyard:lays": {
+        "minecraft:mark_variant": {
+          "value": 1
+        }
+      }
+    },
+    "components": {
+      "minecraft:collision_box": {
+        "width": 1,
+        "height": 1.8
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deals_damage": false
+          }
+        ]
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      }
+    },
+    "events": {
+      "keyyard:lays": {
+        "add": {
+          "component_groups": ["keyyard:lays"]
+        }
+      }
+    }
+  }
+}
