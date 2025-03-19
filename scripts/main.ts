@@ -9,10 +9,9 @@ import {
 import { Guns } from "./PortalGun";
 import { teleportToLinkedPortal } from "./utils";
 
-system.runInterval(() => {
-  world.getAllPlayers().forEach((player) => {
+class PortalGunManager {
+  static updatePlayerActionBar(player: Player) {
     const defaultGun = (player.getDynamicProperty(`defaultGun`) as string) || `red`;
-
     const inventory = player.getComponent("minecraft:inventory") as EntityInventoryComponent;
     const selectedSlot = player.selectedSlotIndex;
     const handItem = inventory?.container?.getItem(selectedSlot);
@@ -27,38 +26,36 @@ system.runInterval(() => {
           break;
       }
     }
-  });
-});
+  }
 
-world.afterEvents.itemUse.subscribe(({ itemStack, source }) => {
-  let playerHeld = (source.getComponent(`equippable`) as EntityEquippableComponent).getEquipment(
-    EquipmentSlot.Mainhand
-  );
-  if (playerHeld?.typeId == "keyyard:portal_gun") {
-    if (!(source instanceof Player)) {
-      return;
-    }
-
-    let defaultGun = source.getDynamicProperty(`defaultGun`) as string;
-    if (!defaultGun) {
-      source.setDynamicProperty(`defaultGun`, `red`);
-      defaultGun = `red`;
-    }
-    switch (defaultGun) {
-      case "red": {
-        Guns.PortalGun().useRedPortalGun(source, itemStack);
-        break;
+  static handleItemUse(itemStack: any, source: Player) {
+    let playerHeld = (source.getComponent(`equippable`) as EntityEquippableComponent).getEquipment(
+      EquipmentSlot.Mainhand
+    );
+    if (playerHeld?.typeId == "keyyard:portal_gun") {
+      if (!(source instanceof Player)) {
+        return;
       }
-      case "blue": {
-        Guns.PortalGun().useBluePortalGun(source);
-        break;
+
+      let defaultGun = source.getDynamicProperty(`defaultGun`) as string;
+      if (!defaultGun) {
+        source.setDynamicProperty(`defaultGun`, `red`);
+        defaultGun = `red`;
+      }
+      switch (defaultGun) {
+        case "red": {
+          Guns.PortalGun().useRedPortalGun(source, itemStack);
+          break;
+        }
+        case "blue": {
+          Guns.PortalGun().useBluePortalGun(source);
+          break;
+        }
       }
     }
   }
-});
 
-system.runInterval(() => {
-  world.getAllPlayers().forEach((player) => {
+  static handlePlayerTeleport(player: Player) {
     let playerTpHolder = (player.getDynamicProperty("playerTpHolder") as number) || 0;
     player.dimension.getEntities({ maxDistance: 2, location: player.location }).forEach((entity) => {
       if (playerTpHolder == 0) {
@@ -83,5 +80,16 @@ system.runInterval(() => {
         player.setDynamicProperty("playerTpHolder", 0);
       }
     });
+  }
+}
+
+system.runInterval(() => {
+  world.getAllPlayers().forEach((player) => {
+    PortalGunManager.updatePlayerActionBar(player);
+    PortalGunManager.handlePlayerTeleport(player);
   });
-}, 1);
+});
+
+world.afterEvents.itemUse.subscribe(({ itemStack, source }) => {
+  PortalGunManager.handleItemUse(itemStack, source);
+});
