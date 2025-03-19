@@ -10,7 +10,7 @@
         "default": "textures/models/portal_gun"
       },
       "geometry": {
-        "default": "geometry.portal_gun"
+        "default": "geometry.portal_gun_model"
       },
       "animations": {
         "wield_first_person": "animation.model.portal_gun_1st",

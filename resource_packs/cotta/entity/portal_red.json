@@ -7,19 +7,21 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "default": "textures/entity/portal_1"
+        "default": "textures/entity/portal_red"
       },
       "geometry": {
-        "default": "geometry.gun_portal_blue"
+        "default": "geometry.portal"
       },
       "animations": {
-        "laying": "animation.portal.laying"
+        "laying": "animation.portal.laying",
+        "arrive": "animation.portal.arrive"
       },
       "scripts": {
         "animate": [
           {
             "laying": "query.mark_variant == 1"
-          }
+          },
+          "arrive"
         ]
       },
       "render_controllers": ["controller.render.gun_portal_red"],
