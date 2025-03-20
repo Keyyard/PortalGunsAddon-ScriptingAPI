@@ -11,6 +11,8 @@ This addon was created by @keyyard.
 
 ## Features
 
+![Portal Appears](medias/portal-appears.gif)
+
 - Portal Gun shoots 2 portals, blue and orange. It switches mode every time you shoot and a portal appears successfully.
 - The Portals can be both placed horizontally and vertically.
 - Eye catching effects and sounds.
